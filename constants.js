@@ -133,6 +133,19 @@ export const WORK = [
     url: "https://www.jpmorgan.com/",
     video: "/work/j.p.morgan.mp4",
   },
+  {
+    id: 2,
+    company: "ImCodeZero",
+    title: "Full Stack Developer Intern",
+    location: "Pakistan",
+    range: "April 2025",
+    responsibilities: [
+      "Developing and maintaining web applications with React, Next.js, and Express, focusing on responsiveness and performance",
+      "Collaborated with cross-functional teams to integrate frontend and backend features, ensuring a seamless user experience.",
+    ],
+    url: "https://www.imcodezero.com/",
+    video: "/work/imCodeZero.mp4",
+  },
 ];
 
 export const GTAG = "GTM-NK5XKVJ5";
