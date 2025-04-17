@@ -1,12 +1,7 @@
 {
-  "theme_color": "#7000FF",
-  "background_color": "#120E16",
-  "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
-  "name": "Portfolio | Muhammad Asim",
-  "short_name": "Muhammad Asim",
-  "description": "Muhammad Asim's Portfolio Website.",
+  "name": "Portfolio | Asim Javed",
+  "short_name": "Asim Javed",
+  "description": "Asim Javed's Portfolio Website.",
   "icons": [
     {
       "src": "/icon-192x192.png",
@@ -29,5 +24,10 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "theme_color": "#7000FF",
+  "background_color": "#000000",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
 }

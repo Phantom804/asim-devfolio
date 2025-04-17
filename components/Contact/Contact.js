@@ -1,43 +1,38 @@
 import { useState, useEffect, useRef } from "react";
 import Filter from "bad-words";
-import { MENULINKS } from "../../constants";
 import toast, { Toaster } from "react-hot-toast";
 import Fade from "react-reveal/Fade";
-import mail from "./mailer";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import mail from "./mailer";
 import styles from "./Contact.module.scss";
+import { MENULINKS } from "../../constants";
 
 const filter = new Filter();
 filter.removeWords("hell", "god", "shit");
 
+const toastOptions = {
+  style: {
+    borderRadius: "10px",
+    background: "#333",
+    color: "#fff",
+    fontFamily: "sans-serif",
+  },
+};
+
 const empty = () =>
   toast.error("Please fill the required fields", {
     id: "error",
-    style: {
-      borderRadius: "10px",
-      background: "#333",
-      color: "#fff",
-    },
   });
 
 const error = () =>
   toast.error("Error sending your message", {
     id: "error",
-    style: {
-      borderRadius: "10px",
-      background: "#333",
-      color: "#fff",
-    },
   });
 
 const success = () =>
   toast.success("Message sent successfully", {
     id: "success",
-    style: {
-      borderRadius: "10px",
-      background: "#333",
-      color: "#fff",
-    },
   });
 
 const Contact = () => {
@@ -45,7 +40,8 @@ const Contact = () => {
   const [formData, setFormData] = useState(initialState);
   const [mailerResponse, setMailerResponse] = useState("not initiated");
   const [isSending, setIsSending] = useState(false);
-  const buttonEl = useRef(null);
+  const buttonElementRef = useRef(null);
+  const sectionRef = useRef(null);
 
   const handleChange = ({ target }) => {
     const { id, value } = target;
@@ -103,11 +99,11 @@ const Contact = () => {
   }, [mailerResponse]);
 
   useEffect(() => {
-    buttonEl.current.addEventListener("click", (e) => {
-      if (!buttonEl.current.classList.contains("active")) {
-        buttonEl.current.classList.add("active");
+    buttonElementRef.current.addEventListener("click", (e) => {
+      if (!buttonElementRef.current.classList.contains("active")) {
+        buttonElementRef.current.classList.add("active");
 
-        gsap.to(buttonEl.current, {
+        gsap.to(buttonElementRef.current, {
           keyframes: [
             {
               "--left-wing-first-x": 50,
@@ -116,7 +112,7 @@ const Contact = () => {
               "--right-wing-second-y": 100,
               duration: 0.2,
               onComplete() {
-                gsap.set(buttonEl.current, {
+                gsap.set(buttonElementRef.current, {
                   "--left-wing-first-y": 0,
                   "--left-wing-second-x": 40,
                   "--left-wing-second-y": 100,
@@ -168,9 +164,9 @@ const Contact = () => {
               duration: 0.375,
               onComplete() {
                 setTimeout(() => {
-                  buttonEl.current.removeAttribute("style");
+                  buttonElementRef.current.removeAttribute("style");
                   gsap.fromTo(
-                    buttonEl.current,
+                    buttonElementRef.current,
                     {
                       opacity: 0,
                       y: -8,
@@ -181,7 +177,7 @@ const Contact = () => {
                       clearProps: true,
                       duration: 0.3,
                       onComplete() {
-                        buttonEl.current.classList.remove("active");
+                        buttonElementRef.current.classList.remove("active");
                       },
                     }
                   );
@@ -191,7 +187,7 @@ const Contact = () => {
           ],
         });
 
-        gsap.to(buttonEl.current, {
+        gsap.to(buttonElementRef.current, {
           keyframes: [
             {
               "--text-opacity": 0,
@@ -230,38 +226,59 @@ const Contact = () => {
         });
       }
     });
-  }, [buttonEl]);
+  }, [buttonElementRef]);
+
+  useEffect(() => {
+    const tl = gsap.timeline({ defaults: { ease: "none" } });
+
+    tl.from(
+      sectionRef.current.querySelectorAll(".staggered-reveal"),
+      { opacity: 0, duration: 0.5, stagger: 0.5 },
+      "<"
+    );
+
+    ScrollTrigger.create({
+      trigger: sectionRef.current.querySelector(".contact-wrapper"),
+      start: "100px bottom",
+      end: "center center",
+      scrub: 0,
+      animation: tl,
+    });
+
+    return () => tl.kill();
+  }, [sectionRef]);
 
   return (
     <section
-      className="mt-30 w-full relative select-none bg-gray-dark-4 pt-20 sm:pt-10 md:pt-5 lg:pt-1 pb-20"
+      ref={sectionRef}
       id={MENULINKS[4].ref}
+      className="mt-30 w-full relative select-none bg-black pt-20 sm:pt-10 md:pt-5 lg:pt-1 pb-20"
     >
       <div>
-        <Toaster />
+        <Toaster toastOptions={toastOptions} />
       </div>
       <div className="section-container flex flex-col justify-center">
-        <div className="flex flex-col work-wrapper">
+        <div className="flex flex-col contact-wrapper">
           <div className="flex flex-col">
-            <p className="uppercase tracking-widest text-gray-light-1 seq">
+            <p className="uppercase tracking-widest text-gray-light-1 staggered-reveal">
               CONTACT
             </p>
-            <h1 className="text-6xl mt-2 font-medium text-gradient w-fit seq">
+            <h1 className="text-6xl mt-2 font-medium text-gradient w-fit staggered-reveal">
               Contact
             </h1>
           </div>
-          <h2 className="text-[1.65rem] font-medium md:max-w-lg w-full mt-2 seq">
+          <h2 className="text-[1.65rem] font-medium md:max-w-lg w-full mt-2 staggered-reveal">
             Get In Touch.{" "}
           </h2>
         </div>
 
-        <form className="pt-10 sm:mx-auto sm:w-[30rem] md:w-[35rem]">
+        <form className="pt-10 sm:mx-auto sm:w-[30rem] md:w-[35rem] staggered-reveal">
           <Fade bottom distance={"4rem"}>
             <div className="relative">
               <input
                 type="text"
                 id="name"
-                className="block w-full h-12 sm:h-14 px-4 text-xl sm:text-2xl font-mono outline-none border-2 border-purple bg-transparent rounded-[0.6rem] transition-all duration-200 focus:bg-gray-dark-5  active:bg-gray-dark-5"
+                className="block w-full h-12 sm:h-14 px-4 text-xl sm:text-2xl font-mono outline-none border-2 border-purple bg-transparent rounded-[0.6rem] transition-all duration-200"
                 value={formData.name}
                 onChange={handleChange}
                 required
@@ -278,7 +295,7 @@ const Contact = () => {
               <input
                 type="text"
                 id="email"
-                className="block w-full h-12 sm:h-14 px-4 text-xl sm:text-2xl font-mono outline-none border-2 border-purple bg-transparent rounded-[0.6rem] transition-all duration-200 focus:bg-gray-dark-5  active:bg-gray-dark-5"
+                className="block w-full h-12 sm:h-14 px-4 text-xl sm:text-2xl font-mono outline-none border-2 border-purple bg-transparent rounded-[0.6rem] transition-all duration-200"
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -294,7 +311,7 @@ const Contact = () => {
             <div className="relative mt-14">
               <textarea
                 id="message"
-                className="block w-full h-auto min-h-[10rem] max-h-[20rem] sm:h-14 py-2 px-4 text-xl sm:text-2xl font-mono outline-none border-2 border-purple bg-transparent rounded-[0.6rem] transition-all duration-200 focus:bg-gray-dark-5  active:bg-gray-dark-5"
+                className="block w-full h-auto min-h-[10rem] max-h-[20rem] sm:h-14 py-2 px-4 text-xl sm:text-2xl font-mono outline-none border-2 border-purple bg-transparent rounded-[0.6rem] transition-all duration-200"
                 value={formData.message}
                 onChange={handleChange}
                 required
@@ -317,8 +334,8 @@ const Contact = () => {
         </form>
         <div className="mt-9 mx-auto link">
           <button
+            ref={buttonElementRef}
             className={styles.button}
-            ref={buttonEl}
             disabled={
               formData.name === "" ||
               formData.email === "" ||
@@ -328,7 +345,7 @@ const Contact = () => {
             }
             onClick={handleSubmit}
           >
-            <span className={styles.default}>Send -&gt;</span>
+            <span>Send -&gt;</span>
             <span className={styles.success}>
               <svg viewBox="0 0 16 16">
                 <polyline points="3.75 9 7 12 13 5"></polyline>
@@ -340,8 +357,8 @@ const Contact = () => {
               <path d="M6,4 C8,13.3333333 9,22.6666667 9,32 C9,41.3333333 8,50.6666667 6,60"></path>
             </svg>
             <div className={styles.plane}>
-              <div className={styles.left}></div>
-              <div className={styles.right}></div>
+              <div className={styles.left} />
+              <div className={styles.right} />
             </div>
           </button>
         </div>
@@ -362,7 +379,7 @@ const Contact = () => {
         input:focus,
         textarea:active,
         textarea:focus {
-          box-shadow: 0 0 0.3rem #120e16;
+          box-shadow: 0 0 0.3rem #000000;
         }
 
         input:focus + label,

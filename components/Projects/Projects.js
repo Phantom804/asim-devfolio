@@ -81,9 +81,8 @@ const Projects = ({ isDesktop, clientHeight }) => {
   return (
     <section
       ref={targetSection}
-      className={`${
-        isDesktop && "min-h-screen"
-      } w-full relative select-none section-container transform-gpu`}
+      className={`${isDesktop && "min-h-screen"
+        } w-full relative select-none section-container transform-gpu`}
       id={MENULINKS[2].ref}
     >
       <div className="flex flex-col py- justify-center h-full">
@@ -103,9 +102,8 @@ const Projects = ({ isDesktop, clientHeight }) => {
           </h2>
         </div>
         <div
-          className={`${
-            clientHeight > 650 ? "mt-12" : "mt-8"
-          } flex project-wrapper w-fit seq`}
+          className={`${clientHeight > 650 ? "mt-12" : "mt-8"
+            } flex project-wrapper w-fit seq`}
         >
           {PROJECTS.map((project, index) => (
             <ProjectTile

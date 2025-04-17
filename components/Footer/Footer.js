@@ -1,16 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Fade } from "react-reveal";
-import { gsap, Linear } from "gsap";
 import { Howl } from "howler";
 import Button from "../Button/Button";
 import FooterBg from "./FooterBg/FooterBg";
 import Profiles from "../Profiles/Profiles";
+import { theme } from "tailwind.config";
 import { MENULINKS } from "../../constants";
 
 const Footer = () => {
   const [playbackRate, setPlaybackRate] = useState(0.75);
-  const targetSection = useRef(null);
 
   const heartClickSound = new Howl({
     src: ["/sounds/glug-a.mp3"],
@@ -23,33 +22,24 @@ const Footer = () => {
     heartClickSound.play();
   };
 
-  useEffect(() => {
-    const revealTl = gsap.timeline({ defaults: { ease: Linear.easeNone } });
-    revealTl
-      .to(targetSection.current, { opacity: 1, duration: 2 })
-      .from(
-        targetSection.current.querySelectorAll(".seq"),
-        { opacity: 0, duration: 0.5, stagger: 0.5 },
-        "<"
-      );
-  }, [targetSection]);
-
   return (
     <footer
       className="w-full relative select-none bg-cover"
-      ref={targetSection}
+      style={{
+        backgroundImage: `linear-gradient(to right, ${theme.colors.indigo.light}, ${theme.colors.indigo.dark})`,
+      }}
     >
       <FooterBg />
       <Fade bottom distance={"4rem"}>
         <div className="w-full h-full pt-32">
           <div className="section-container flex flex-col h-full justify-end z-10 items-center py-12">
-            <h1 className="font-medium text-3xl md:text-4xl text-center seq">
+            <h1 className="font-medium text-3xl md:text-4xl text-center">
               Feel free to connect on social media.
             </h1>
-            <div className="text-center seq">
+            <div className="text-center">
               <Profiles />
             </div>
-            <div className="seq pt-4 text-center">
+            <div className="pt-4 text-center">
               <Button
                 href={`#${MENULINKS[4].ref}`}
                 classes="link"
@@ -60,10 +50,8 @@ const Footer = () => {
             </div>
             <p className="text-center text-white text-sm sm:text-base font-medium tracking-wide mt-8">
               Developed with{" "}
-              <button onClick={handleClick} className="link heart-btn">
-                <span role="img" aria-label="heart" className="animate-pulse">
-                  ❤️
-                </span>
+              <button onClick={handleClick} className="link cursor-none">
+                <span className="block animate-bounce">❤️</span>
               </button>{" "}
               by <span className="text-white">Asim</span>
             </p>
@@ -77,11 +65,6 @@ const Footer = () => {
         loading="eager"
         height={180}
       />
-      <style jsx global>{`
-        footer {
-          background-image: linear-gradient(270deg, #9f55ff, #7000ff, #8b31ff);
-        }
-      `}</style>
     </footer>
   );
 };

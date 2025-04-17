@@ -1,6 +1,6 @@
 export const METADATA = {
-  author: "Muhammad Asim Arain",
-  title: "Portfolio | Muhammad Asim",
+  author: "Muhammad Asim",
+  title: "Portfolio | Asim Javed",
   description:
     "Muhammad Asim is a Full Stack Web Developer from Pakistan, interested in crafting beautiful and functional applications.",
   siteUrl: process.env.NEXT_PUBLIC_PORTFOLIO_URL,
@@ -18,6 +18,7 @@ export const METADATA = {
   image:
     "https://res.cloudinary.com/dfwccwtsq/image/upload/v1714486188/preview_zgud9z.png",
   language: "English",
+  themeColor: "#000000",
 };
 
 export const MENULINKS = [
@@ -44,9 +45,32 @@ export const MENULINKS = [
 ];
 
 export const TYPED_STRINGS = [
-  "A pragmatic Web Developer",
+  "A pragmatic Full Stack Developer",
   "I build things for the web",
   "I am constantly learning and always growing.",
+];
+
+export const SOCIAL_LINKS = [
+  {
+    name: "mail",
+    url: process.env.NEXT_PUBLIC_EMAIL,
+  },
+  {
+    name: "linkedin",
+    url: process.env.NEXT_PUBLIC_LINKDIN_URL,
+  },
+  {
+    name: "github",
+    url: process.env.NEXT_PUBLIC_GITHUB_URL,
+  },
+  {
+    name: "instagram",
+    url: process.env.NEXT_PUBLIC_INSTAGRAM_URL,
+  },
+  {
+    name: "twitter",
+    url: process.env.NEXT_PUBLIC_X_URL,
+  },
 ];
 
 export const SKILLS = {
@@ -79,15 +103,7 @@ export const SKILLS = {
 };
 
 export const PROJECTS = [
-  // {
-  //   name: "Lms-platform",
-  //   image: "/projects/lms.webp",
-  //   blurImage: "/projects/blur/lms-blur.webp",
-  //   description: "Built an LMS platform with Next.js 13 ",
-  //   gradient: ["#F14658", "#DC2537"],
-  //   url: "https://github.com/Phantom804/lms-platform",
-  //   tech: ["nextjs", "typescript", "mysql", "stripe", "redux"],
-  // },
+
   {
     name: "Dev-finder",
     image: "/projects/devfinder.webp",
@@ -118,34 +134,54 @@ export const PROJECTS = [
   },
 ];
 
-export const WORK = [
-  {
-    id: 1,
-    company: "J.P. Morgan",
-    title: "Software Engineer",
-    location: "Pakistan",
-    range: "April 2024",
-    responsibilities: [
-      "Set up a local dev environment by downloading the necessary files, tools and dependencies.",
-      "Fixed broken files in the repository to make web application output correctly.",
-      " Used JPMorgan Chase’s open source library called Perspective to generate a live graph that displays a data feed in a clear and visually appealing way for traders to monitor.",
-    ],
-    url: "https://www.jpmorgan.com/",
-    video: "/work/j.p.morgan.mp4",
-  },
-  {
-    id: 2,
-    company: "ImCodeZero",
-    title: "Full Stack Developer Intern",
-    location: "Pakistan",
-    range: "April 2025",
-    responsibilities: [
-      "Developing and maintaining web applications with React, Next.js, and Express, focusing on responsiveness and performance",
-      "Collaborated with cross-functional teams to integrate frontend and backend features, ensuring a seamless user experience.",
-    ],
-    url: "https://www.imcodezero.com/",
-    video: "/work/imCodeZero.mp4",
-  },
-];
+
+export const WORK_CONTENTS = {
+  ImCodeZero: [
+    {
+      title: "ImCodeZero",
+      description:
+        "Full Stack Developer Intern - (Nov 24 - Apr 25)",
+      content: (
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
+          Creating a synergy of business and the digital world.
+        </div>
+      ),
+    },
+    {
+      title: "Description",
+      description:
+        "Developing and maintaining web applications with React, Next.js, and Express, focusing on responsiveness and performance, Collaborated with cross-functional teams to integrate frontend and backend features, ensuring a seamless user experience.",
+      content: (
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
+          Full Stack Developer Intern - Nov 24 - Apr 25
+        </div>
+      ),
+    },
+
+  ],
+  JPMorgan: [
+    {
+      title: "J.P. Morgan",
+      description:
+        "Software Engineer",
+      content: (
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
+          Make Momentum Happen
+        </div>
+      ),
+    },
+    {
+      title: "Description",
+      description:
+        "Set up a local dev environment by downloading the necessary files, tools and dependencies, Fixed broken files in the repository to make web application output correctly, daily traffic. Used JPMorgan Chase’s open source library called Perspective to generate a live graph that displays a data feed in a clear and visually appealing way for traders to monitor.",
+      content: (
+        <div className="h-full w-full flex items-center justify-center text-white px-4">
+          Software Engineer
+        </div>
+      ),
+    },
+  ],
+
+};
 
 export const GTAG = "GTM-NK5XKVJ5";
